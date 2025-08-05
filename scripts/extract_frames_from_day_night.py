@@ -1,4 +1,4 @@
-import os
+import os, glob
 import cv2
 
 # Set your raw video source folder
@@ -10,23 +10,36 @@ FRAME_INTERVAL = 30  # Save every 30th frame (~1/sec at 30 FPS)
 
 
 def extract_frames_from_video(video_path, output_dir, interval):
-    cap = cv2.VideoCapture(video_path)
-    frame_count = 0
-    saved_count = 0
     os.makedirs(output_dir, exist_ok=True)
 
+    # 🧠 Detect already extracted frames
+    existing_frames = sorted(glob.glob(os.path.join(output_dir, "frame_*.jpg")))
+    saved_count = len(existing_frames)
+    print(f"🟡 Found {saved_count} existing frames in {output_dir}")
+
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        print(f"❌ Cannot open video: {video_path}")
+        return
+
+    # ⏩ Skip to the correct frame number based on interval
+    cap.set(cv2.CAP_PROP_POS_FRAMES, saved_count * interval)
+
+    frame_count = saved_count * interval
     while True:
         success, frame = cap.read()
         if not success:
             break
+
         if frame_count % interval == 0:
             filename = f"frame_{saved_count:05}.jpg"
             cv2.imwrite(os.path.join(output_dir, filename), frame)
             saved_count += 1
+
         frame_count += 1
 
     cap.release()
-    print(f"✅ Extracted {saved_count} frames → {output_dir}")
+    print(f"✅ Resumed and extracted up to frame {saved_count} → {output_dir}")
 
 
 def process_day_night_videos():
