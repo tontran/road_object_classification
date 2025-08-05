@@ -1,0 +1,37 @@
+# Ignore raw videos
+*.mp4
+*.avi
+*.mov
+# or whole video folder (custom path outside project)
+!road_object_classification/
+
+# Ignore extracted frames
+raw_frames/
+
+# Ignore datasets (too large, not version-controlled)
+dataset/
+
+# Ignore model weights
+models/*.pt
+models/*.onnx
+models/*.tflite
+models/*.pth
+
+# But allow .gitkeep to keep the folder tracked
+!models/.gitkeep
+
+# Ignore training logs/plots
+outputs/
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+
+# Virtual envs
+venv/
+.env/
