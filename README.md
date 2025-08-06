@@ -1,12 +1,12 @@
 road_object_classification/
 ├── dataset/
-│   ├── daytime/
+│   ├── train/
 │   │   ├── car/
 │   │   ├── bus/
 │   │   ├── truck/
 │   │   ├── motorcycle/
 │   │   └── human/
-│   ├── nighttime/
+│   ├── val/
 │   │   ├── car/
 │   │   ├── bus/
 │   │   ├── truck/
