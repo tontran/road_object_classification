@@ -24,5 +24,5 @@ road_object_classification/
 │   └── plots/                 ← Training metrics
 ├── inference/
 │   └── infer_single_image.py  ← Future: for S22 inference testing
-├── README.md
+├── README
 └── requirements.txt
